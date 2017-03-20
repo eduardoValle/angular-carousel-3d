@@ -307,7 +307,7 @@
         }
 
         function goPrev(farchange) {
-
+            if( carousel3d.currentIndex === carousel3d.endOnIndex ) return false;
             farchange = (farchange) ? farchange : false;
 
             if ((!farchange && carousel3d.getLock()) || (!carousel3d.loop && carousel3d.isFirstSlide())) {
@@ -497,6 +497,7 @@
             this.state = this.states.PENDING;
             this.deferred = $q.defer();
             this.promise = this.deferred.promise;
+            this.endOnIndex=params.endOnIndex;
         }
 
         // == Public  methods
@@ -547,9 +548,12 @@
             getLock: getLock,
             isLastSlide: isLastSlide,
             isFirstSlide: isFirstSlide,
-            getSourceProp: getSourceProp
+            getSourceProp: getSourceProp,
+            endOnIndex:isEndOnIndex
         };
-
+        function isEndOnIndex() {
+            return this.endOnIndex;
+        }
         function isInitiated() {
             return ( this.state !== this.states.PENDING );
         }
